@@ -104,6 +104,9 @@ function toClientToolExecutionEvent(event: AgentEventLike): AgentEventLike | nul
     toolCallId: event.toolCallId,
     toolName: event.toolName,
     isError: event.isError,
+    ...(typeof event.durationMs === "number" && Number.isFinite(event.durationMs)
+      ? { durationMs: event.durationMs }
+      : {}),
     ...(nested ? { parentToolCallId: event.parentToolCallId } : {}),
   };
 }
